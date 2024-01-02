@@ -4,7 +4,7 @@ import img1 from '@/img/img1.jpeg'
 
 export default function Footer (){
     return (
-        <footer>
+        <footer className='bg-white py-2'>
             <div className="container mt-4">
                 <div className="row">
                     <div className="col-12 col-lg-3 pe-2">

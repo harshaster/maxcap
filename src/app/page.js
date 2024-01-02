@@ -36,24 +36,24 @@ export default function Home() {
 					<div className='col-12 pb-4'>
 						<div className='row justify-content-between'>
 							<div className='col-12 col-lg-3'>
-								<select class="form-select" aria-label="Default select example">
-									<option selected>Location</option>
+								<select className="form-select" defaultValue={null} aria-label="Select Property Location">
+									<option>Location</option>
 									<option value="1">One</option>
 									<option value="2">Two</option>
 									<option value="3">Three</option>
 								</select>
 							</div>
 							<div className='col-12 col-lg-3'>
-								<select class="form-select" aria-label="Default select example">
-									<option selected>Category</option>
+								<select className="form-select" defaultValue={null} aria-label="Select Property Category">
+									<option>Category</option>
 									<option value="1">One</option>
 									<option value="2">Two</option>
 									<option value="3">Three</option>
 								</select>
 							</div>
 							<div className='col-12 col-lg-3'>
-								<select class="form-select" aria-label="Default select example">
-									<option selected>Property Type</option>
+								<select className="form-select" defaultValue={null} aria-label="Select Property Type">
+									<option>Property Type</option>
 									<option value="1">One</option>
 									<option value="2">Two</option>
 									<option value="3">Three</option>
