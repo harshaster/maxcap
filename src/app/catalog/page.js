@@ -1,8 +1,9 @@
-export default function AboutUs(){
+function Catalog(){
     return (
         <main>
-            <h1>About Us</h1>
-            <p>Some content about us.</p>
+            
         </main>
     )
 }
+
+export default Catalog;
