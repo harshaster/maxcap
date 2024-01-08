@@ -82,20 +82,20 @@ export default function Property({params}) {
                         <hr/>
                         <div className="p-3 bg-light">
                             <div className='mb-3'>
-                                <label for="email" className="form-label">Email address</label>
+                                <label htmlFor="email" className="form-label">Email address</label>
                                 <input type="email" className="form-control" id="email" aria-describedby="emailHelp"/>
                                 <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                             </div>
                             <div className='mb-3 '>
-                                <label for="full-name" className="form-label">Full Name</label>
+                                <label htmlFor="full-name" className="form-label">Full Name</label>
                                 <input type="text" className="form-control" id="full-name"/>
                             </div>
                             <div className='mb-3 '>
-                                <label for="phone" className="form-label">Email address</label>
+                                <label htmlFor="phone" className="form-label">Email address</label>
                                 <input type="tel" className="form-control" id="phone"/>
                             </div>
                             <div className='mb-3 '>
-                                <label for="message" className="form-label">Message</label>
+                                <label htmlFor="message" className="form-label">Message</label>
                                 <textarea className="form-control" id="message" rows="5"></textarea>
                             </div>
                             <div className='mb-3 '>
