@@ -4,8 +4,10 @@ import Image from "next/image"
 import logo from "@/img/logo.png"
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
-
-
+import { getAuth } from "firebase/auth"
+import {app} from "@/config"
+import { useEffect, useState } from "react"
+import Loader from "./loader"
 
 let mystyle = {
 	flexGrow : 0
@@ -24,13 +26,32 @@ let imageStyle={
 
 function Header(){
 	const pathname= usePathname()
+	const auth = getAuth(app)
+	const [user, setUser] = useState(null)
+	const [isLoading, setIsLoading] = useState(true)
+
+	auth.onAuthStateChanged((user) => {
+		setUser(user)
+		setIsLoading(false)
+	})
+
+	function logout(){
+		setIsLoading(true)
+		auth.signOut().then(() => {
+			setIsLoading(false)
+		}
+		).catch((error) => {
+			console.log(error)
+			setIsLoading(false)
+		})
+	}
     return (
 
         <header>
 			<nav className="navbar navbar-expand-lg fixed-top bg-dark bg-opacity-25">
-				<div className="container">
+				<div className="container-lg">
 					<a className="navbar-brand" href="#">
-						<Image src={logo} style={imageStyle} width={100} alt="maxx capital"></Image>
+						<Image priority src={logo} style={imageStyle} width={100} alt="maxx capital"></Image>
 					</a>
 					<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 						<svg className="navbar-toggler-icon" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 16 16">
@@ -43,9 +64,11 @@ function Header(){
 								<Link className={`nav-link ${pathname == l.href ? "active" : ""}`} aria-current="page" href={l.href}>{l.title}</Link>
 							</li>)})}
 							<li>
-								<Link className="btn btn-sm btn-primary" href="/contact">Login</Link>
+								{isLoading ? <Loader/> :
+								(user ? (
+								<div><Link className="btn btn-sm btn-primary" href="/dashboard">Dashboard</Link><button onClick={logout} className='btn btn-sm btn-danger'>Logout</button></div>) : 
+								(<Link className="btn btn-sm btn-primary" href="/login">Login</Link>))}
 							</li>
-							
 						</ul>
 					</div>
 				</div>
