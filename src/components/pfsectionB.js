@@ -9,7 +9,7 @@ export default function SectionB(){
                 <h2>Section B: Firm Financials</h2>
                 <form className="row p-4 bg-white border rounded shadow-sm">
                     <div className="col-12">
-                        <label htmlFor="firm-name" className="form-label fw-bold">Upload following documents:</label>
+                        <label className="form-label fw-bold">Upload following documents:</label>
                     </div>
                     <div className="col-12 py-2">
                         <h5>2021-22</h5>
@@ -42,6 +42,12 @@ export default function SectionB(){
                     <UploadWidget text="Balance Sheet" uniq="balance-sheet-23"/>
                     <UploadWidget text="Computation of Income" uniq="comp-income-23"/>
                     <UploadWidget text="PNL Statement" uniq="pnl-23"/>
+                    <hr/>
+                    <div className="col-12 py-2">
+                        <h5>Upload all bank statements of last 6 months:</h5>
+                    </div>
+                    <UploadWidget text="RERA Collection Account Statement" uniq="urca-statement"/>
+                    <UploadWidget text="Current Account Statement" uniq="current-statement"/>
                 </form>
             </div>
         </main>
