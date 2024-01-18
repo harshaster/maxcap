@@ -1,7 +1,7 @@
 "user client"
 import Link from "next/link"
 import Loader from "./loader"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { storage } from  "@/config"
 import {ref, uploadBytes, getDownloadURL,deleteObject} from "firebase/storage"
 import {auth} from "@/config"
@@ -12,6 +12,13 @@ export default function UploadWidget(params) {
     const [fileURL, setFileURL] = useState(null);
     const [deleting, setDeleting] = useState(false)
     const [fileRef, setfileRef] = useState(null)
+
+    useEffect(() => {
+        if (params.upload){
+            setFileURL(params.upload)
+            setUploaded(true)
+        }
+    })
 
     function uploadFile(e) {
         e.preventDefault();
@@ -33,6 +40,7 @@ export default function UploadWidget(params) {
             const url = await getDownloadURL(storageRef);
             setFileURL(url)
             setfileRef(storageRef)
+            params.setStorageFileURL(url)
         })
         .catch(e => {
             alert(e.message)
@@ -47,14 +55,14 @@ export default function UploadWidget(params) {
     async function deleteFile(){
         setDeleting(true)
         deleteObject(fileRef).then(()=>{
-            setUploaded(false);setFileURL(null);
+            setUploaded(false);setFileURL(null); params.removeStorageFileURL()
         }).catch((error) => { alert(error.message)})
         .finally(()=>{setDeleting(false) })
     };
    
     return (
-        <div className="col-12 mb-3 col-lg-6">
-            <label htmlFor={params.uniq} className="form-label">{uploaded && <span className="text-success border rounded-circle px-1">&#10003;</span>} {params.text} </label>
+        <div className={`col-12 mb-3 ${!params.full ? 'col-lg-6' : ''}`}>
+            {!params.full && <label htmlFor={params.uniq} className="form-label">{uploaded && <span className="text-success border rounded-circle px-1">&#10003;</span>} {params.text} </label>}
             {uploaded ? (
             <div>
                 <Link className="btn btn-sm btn-outline-primary mx-4" target="blank" href={fileURL}>View File</Link>
