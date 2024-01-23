@@ -82,23 +82,16 @@ export default function SectionB(params){
         return doc
     }
 
-    function handleDelete(uniq){
-        let newDocs = documents
-        let index = documents.findIndex(doc => doc.uniq === uniq)
-        newDocs[index].upload = null
-        setDocuments(newDocs)
-    }
-
     function handleSaveSection(e){
         e.preventDefault()
         setSaving(true)
-        // for (let doc of documents){
-        //     if (!doc.upload){
-        //         alert(`Please upload ${doc.name} for ${doc.period}.`)
-        //         setSaving(false)
-        //         return
-        //     }
-        // }
+        for (let doc of documents){
+            if (!doc.upload){
+                alert(`Please upload ${doc.name} for ${doc.period}.`)
+                setSaving(false)
+                return
+            }
+        }
         let usrID= null
         if (auth.currentUser){
             usrID = auth.currentUser.uid
@@ -140,8 +133,7 @@ export default function SectionB(params){
                                         uniq={uniq} 
                                         upload={found ? found.upload : null} 
                                         period={year} 
-                                        setStorageFileURL={url=> handleUpload(uniq,url)} 
-                                        removeStorageFileURL={()=>handleDelete(uniq)}
+                                        setStorageFileURL={url=> handleUpload(uniq,url)}
                                     />
                                 )
                             })}
@@ -180,8 +172,7 @@ export default function SectionB(params){
                                                 full
                                                 upload={found ? found.upload : null} 
                                                 period={month} 
-                                                setStorageFileURL={url=> handleUpload(uniq, url)} 
-                                                removeStorageFileURL={()=>handleDelete(uniq)}
+                                                setStorageFileURL={url=> handleUpload(uniq, url)}
                                             />
                                         </td>
                                     )

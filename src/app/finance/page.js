@@ -43,14 +43,22 @@ export default function ProjectFinance(){
         })
     },[])
 
-    function handleSaveStage(stage){
+    function handleSaveStage(newStage){
         setLoading(true)
-        setFinanceFormStage(auth.currentUser.uid, stage)
-        .then(()=>{
-            setStage(stage)
-            setViewing(stage)
+        if(newStage<stage){
+            setViewing(newStage)
             setLoading(false)
-        })
+            return
+        }
+        else{
+            setFinanceFormStage(auth.currentUser.uid, newStage)
+            .then(()=>{
+                setStage(newStage)
+                setViewing(newStage)
+                setLoading(false)
+            })
+        }
+        
     }
 
     function renderStage(){

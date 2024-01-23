@@ -82,15 +82,6 @@ export default function SectionA(params){
         }))
     }
 
-    function removeUploadFile(uniq){
-        setDocuments(documents.map(doc => {
-            if(doc.uniq === uniq){
-                doc.upload = null
-            }
-            return doc
-        }))
-    }
-
     
     function handleSave(e){
         e.preventDefault()
@@ -188,7 +179,6 @@ export default function SectionA(params){
                                         setStorageFileURL={url => setUploadFile(doc.uniq, url)} 
                                         key={doc.uniq}
                                         upload={doc.upload}
-                                        removeStorageFileURL={()=>removeUploadFile(doc.uniq)}
                                     />
                                 )
                             )

@@ -43,7 +43,7 @@ export default function SectionC(params) {
             usrID = auth.currentUser.uid
         }
         setFinanceFormSection(usrID, "sectionC", {clients , clientNum})
-        .then(()=>{
+        .then(()=>{ 
             setSaving(false)
             params.doneSection()
         })
@@ -59,7 +59,7 @@ export default function SectionC(params) {
         getFinanceFormSection(usrID, "sectionC").then(data => {
             if (data){
                 setClients(data.clients)
-                setClientNum(data.clientsNum)
+                setClientNum(data.clientNum)
                 setFetching(false)
             }
             else{

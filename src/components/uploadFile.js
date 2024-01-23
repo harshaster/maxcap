@@ -55,7 +55,7 @@ export default function UploadWidget(params) {
     async function deleteFile(){
         setDeleting(true)
         deleteObject(fileRef).then(()=>{
-            setUploaded(false);setFileURL(null); params.removeStorageFileURL()
+            setUploaded(false);setFileURL(null); params.setStorageFileURL(null)
         }).catch((error) => { alert(error.message)})
         .finally(()=>{setDeleting(false) })
     };
