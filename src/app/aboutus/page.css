@@ -26,3 +26,17 @@ main{
     background: #fe8d41;
     border: #000 solid 2px;
 }
+
+.vision-header {
+    position: relative;
+  }
+  
+  .vision-header .underline {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px; /* Adjust the width of the line as needed */
+    height: 2px;
+    background-color: #333; /* Adjust the color of the line as needed */
+  } 
