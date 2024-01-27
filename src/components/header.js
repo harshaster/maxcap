@@ -15,6 +15,7 @@ let mystyle = {
 
 let links = [
 	{href : '/', title: 'Home'},
+	{href : '/aboutus', title: 'About Us'},
 	{href : '/catalog', title: 'Property Catalog'},
 	{href : '/marketing', title: 'Project Marketing'},,
 	{href : '/loans', title: 'Home Loans'},

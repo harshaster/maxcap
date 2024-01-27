@@ -1,0 +1,28 @@
+main{
+    padding-top: 80px;
+}
+
+.hero{
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+.hero_label{
+    color: white;
+    font-weight: 500;
+
+}
+
+.hero_text{
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 72px;
+}
+
+.box{
+    width: 35vw;
+    height: 70vh;
+    background: #fe8d41;
+    border: #000 solid 2px;
+}
