@@ -3,6 +3,8 @@ import { getDoc, setDoc, collection, doc } from 'firebase/firestore'
 
 const usersDb = collection(db, "users") 
 const financeFormsDb = collection(db, "financeForms")
+const homeLoanFormsDb = collection(db, "homeLoanForms")
+const newsLetterSubsDb = collection(db, "newsLetterSubs")
 
 async function fetchUserFromId(usrId){
     let docRef = doc(usersDb, usrId)
@@ -67,11 +69,48 @@ async function setFinanceFormStage(usrId, stage){
     }
 }
 
+
+async function getHomeLoanForm(usrId){
+    let docRef = doc(homeLoanFormsDb, usrId)
+    let res = await getDoc(docRef)
+    if (res.exists()){
+        return res.data()
+    } else {
+        return null
+    }
+}
+
+async function setHomeLoanForm(usrId, data){
+    let docRef = doc(homeLoanFormsDb, usrId)
+    // check if doc exists
+    let res = await getDoc(docRef)
+    if (res.exists()){
+        await setDoc(docRef, data, { merge: true })
+    } else {
+        await setDoc(docRef, data)
+    }
+}
+
+async function subscribeToNewsLetter(email){
+    // search if email exists
+    let docRef = doc(newsLetterSubsDb, email)
+    let res = await getDoc(docRef)
+    if (res.exists()){
+        return res.data()
+    } else {
+        await setDoc(docRef, { email: email, subscribedAt: new Date()})
+        return null
+    }
+}
+
 export { 
     fetchUserFromId, 
     userExists, 
     getFInanceFormStage, 
     setFinanceFormStage,
     setFinanceFormSection,
-    getFinanceFormSection 
+    getFinanceFormSection,
+    getHomeLoanForm,
+    setHomeLoanForm,
+    subscribeToNewsLetter
 }

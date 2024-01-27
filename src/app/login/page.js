@@ -1,16 +1,13 @@
 "use client";
-import style from "../page.module.css";
 import hero from "@/img/hero.jpeg";
 import { useState, useEffect } from "react";
-import {
-	getAuth,
-	RecaptchaVerifier,
-	signInWithPhoneNumber,
-} from "firebase/auth";
-import { app } from "@/config";
+import { RecaptchaVerifier, signInWithPhoneNumber} from "firebase/auth";
+import { auth } from "@/config";
 import { useRouter } from "next/navigation";
 import "firebase/auth";
 import Loader from "@/components/loader";
+import { useSearchParams } from "next/navigation";
+import LoadingOverlay from "@/components/overlay";
 
 export default function Login() {
 	const [phoneNumber, setPhoneNumber] = useState("");
@@ -20,9 +17,10 @@ export default function Login() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [message, setMessage] = useState(null);
 	const [error, setError] = useState(false);
+	const [fetching, setFetching] = useState(false);
 
-	const auth = getAuth(app);
 	const router = useRouter();
+	const query = useSearchParams();
 
 	useEffect(() => {
 		window.recaptchaVerifier = new RecaptchaVerifier(
@@ -38,6 +36,16 @@ export default function Login() {
 		);
 	}, [auth]);
 
+	useEffect(() => {
+		setFetching(true)
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				router.push("/dashboard");
+			}
+			setFetching(false)
+		})
+	},[])
+
 	const handlePhoneNumberChange = (e) => {
 		setPhoneNumber(e.target.value);
 	};
@@ -46,7 +54,8 @@ export default function Login() {
 		setOtp(e.target.value);
 	};
 
-	const handleSendOtp = () => {
+	const handleSendOtp = (e) => {
+		e.preventDefault()
 		try {
 			setError(false);
 			setMessage(null)
@@ -74,14 +83,20 @@ export default function Login() {
 		}
 	};
 
-	const handleOTPSubmit = async () => {
+	const handleOTPSubmit = async (e) => {
+		e.preventDefault()
 		setIsLoading(true)
 		try {
 			await confirmationResult.confirm(otp);
 			setOtp("");
+			if (query.get("redirect")){
+				router.push(router.query.redirect);
+				return;
+			}
 			router.push("/dashboard");
-			// I have to write code here
+			
 		} catch (error) {
+			console.log(error)
 			setError(true)
 			setMessage("Invalid OTP")
 		}
@@ -99,12 +114,13 @@ export default function Login() {
 				paddingTop: "80px"
 			}}
 		>
+			{fetching ? <LoadingOverlay/> : ''}
 			<div className='my-4 container'>
-				<div className="row align-items-center">
+				<div className="row align-items-center justify-content-between">
 					<div className="col-12 p-5 col-lg-9 col-xl-4 bg-white rounded">
 					{(otpSent || error ) ? <div className={`alert alert-${otpSent && !error ? 'success' : 'danger'}`} role="alert">{message}</div> : ''}
 						<h2 className="fancy-font mb-3">Login</h2>
-						<form className="mb-4">
+						<form onSubmit={otpSent ? handleOTPSubmit : handleSendOtp} className="mb-4">
 							<div className="my-3">
 								<label
 									htmlFor="phoneNumber"
@@ -153,6 +169,11 @@ export default function Login() {
 								</button>
 							</div>
 						</form>
+					</div>
+					<div className="col-12 col-lg-3 col-xl-8">
+						<h2 className="fancy-font text-end text-white">
+							<span className="display-3">Get started</span> <br/> with <br/><span className="display-2">Maxx Capital</span> <br/> and get your <span className=" p-2 bg-primary fw-bold">DREAMS</span> fulfilled.
+						</h2>
 					</div>
 				</div>
 			</div>

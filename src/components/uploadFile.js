@@ -34,7 +34,7 @@ export default function UploadWidget(params) {
         }
 
         const file = files[0];
-        const storageRef = ref(storage, `${auth.currentUser.phoneNumber}/${params.uniq}`);
+        const storageRef = ref(storage, `${auth.currentUser.phoneNumber}/${params.uniq}.${file.name.split('.').pop()}`);
         
         uploadBytes(storageRef, file).then(async()=>{
             const url = await getDownloadURL(storageRef);
@@ -63,6 +63,7 @@ export default function UploadWidget(params) {
     return (
         <div className={`col-12 mb-3 ${!params.full ? 'col-lg-6' : ''}`}>
             {!params.full && <label htmlFor={params.uniq} className="form-label">{uploaded && <span className="text-success border rounded-circle px-1">&#10003;</span>} {params.text} </label>}
+            {params.help && <div id={params.uniq + "help"} className="form-text pb-1">{params.help}</div>}
             {uploaded ? (
             <div>
                 <Link className="btn btn-sm btn-outline-primary mx-4" target="blank" href={fileURL}>View File</Link>
@@ -70,7 +71,7 @@ export default function UploadWidget(params) {
             </div>
             ) : 
             (<div className="input-group">
-                <input type="file" className="form-control" id={params.uniq}  />
+                <input type="file" className="form-control" id={params.uniq}  aria-describedby={params.help ? params.uniq + "help" : ""}/>
                 <button className="btn btn-sm btn-primary" onClick={uploadFile} disabled={loading}>{loading && <Loader/> }Upload</button>
             </div>
             )}
