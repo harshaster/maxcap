@@ -106,6 +106,76 @@ export default function AboutUs() {
 
       <div className="w-100 my-5 bg-primary" style={{ overflow: "hidden" }}>
         <div className="container">
+          <div className="text-white p-5">
+            <h2 className="fancy-font align-content-center">Company History</h2>
+            <div className="d-flex align-items-center justify-content-center">
+              <p>
+                {showFullHistory ? (
+                  <>
+                    Established in 2020 under the visionary leadership of Mr.
+                    Shailesh Mishra, Maxx Capital stands as a pioneering force
+                    in real estate project funding consultancy. With a rich
+                    background spanning two decades in banking and finance, Mr.
+                    Mishra envisioned a consultancy dedicated to simplifying the
+                    complex landscape of securing funds for real estate
+                    ventures. Our mission is to streamline the financing process
+                    while exhibiting unwavering dedication in negotiating deals
+                    that serve the best interests of both financial institutions
+                    and our clients. At Maxx Capital, we leverage extensive
+                    expertise to deliver customized solutions for each real
+                    estate project, addressing specific client needs. Whether
+                    navigating intricate banking procedures or ensuring
+                    favorable outcomes, our team takes pride in tailoring
+                    financial solutions for optimal results. Partner with Maxx
+                    Capital for a dedicated ally on your financial journey,
+                    committed to transforming challenges into opportunities and
+                    making real estate project funding more accessible and
+                    advantageous for all stakeholders. Since our establishment
+                    in 2020, Maxx Capital has been a leader in providing
+                    strategic financial solutions under Mr. Shailesh Mishra's
+                    visionary leadership. Specializing in expert guidance and
+                    advisory services tailored to unique client needs, we
+                    navigate the complexities of private investment funding in
+                    builder projects and orchestrate comprehensive financial
+                    packages, including working capital loans, corporate
+                    finance, and structured finance. Beyond conventional
+                    services, our dedicated team excels in crafting innovative
+                    solutions for startups, handling complex restructuring and
+                    refinance cases, and providing expert insights into
+                    insolvency and bankruptcy services. Maxx Capital is your
+                    reliable partner for private equity debt syndication,
+                    investment banking, merger and acquisition services, and a
+                    spectrum of banking and NBFC finance solutions. Welcome to a
+                    consultancy where your aspirations meet expert financial
+                    guidance – welcome to Maxx Capital
+                  </>
+                ) : (
+                  <>
+                    Established in 2020 under the visionary leadership of Mr.
+                    Shailesh Mishra, Maxx Capital stands as a pioneering force
+                    in real estate project funding consultancy. With a rich
+                    background spanning two decades in banking and finance, Mr.
+                    Mishra envisioned a consultancy dedicated to simplifying the
+                    complex landscape of securing funds for real estate
+                    ventures. Our mission is to streamline the financing process
+                    while exhibiting unwavering dedication in negotiating deals
+                    that serve the best interests of both financial institutions
+                    and our clients...
+                  </>
+                )}
+              </p>
+              {!showFullHistory && (
+                <Button variant="outline-light" onClick={handleReadMoreClick}>
+                  &darr;
+                </Button>
+              )}
+              {showFullHistory && (
+                <Button variant="outline-light" onClick={handleReadMoreClick}>
+                  &uarr;
+                </Button>
+              )}
+            </div>
+          </div>
           <div className="row justify-content-center py-3 align-items-center">
             <div
               className="d-none d-lg-block col-lg-6"
@@ -129,82 +199,9 @@ export default function AboutUs() {
                 className="shadow"
               ></div>
             </div>
-            <div className="col-12 col-lg-6 py-2 text-white p-5">
-              <h2 className="fancy-font">Company History</h2>
-              <div className="d-flex align-items-center justify-content-center">
-              <p>
-                  {showFullHistory ? (
-                    <>
-                      Established in 2020 under the visionary leadership of Mr.
-                      Shailesh Mishra, Maxx Capital stands as a pioneering force
-                      in real estate project funding consultancy. With a rich
-                      background spanning two decades in banking and finance,
-                      Mr. Mishra envisioned a consultancy dedicated to
-                      simplifying the complex landscape of securing funds for
-                      real estate ventures. Our mission is to streamline the
-                      financing process while exhibiting unwavering dedication
-                      in negotiating deals that serve the best interests of both
-                      financial institutions and our clients. At Maxx Capital,
-                      we leverage extensive expertise to deliver customized
-                      solutions for each real estate project, addressing
-                      specific client needs. Whether navigating intricate
-                      banking procedures or ensuring favorable outcomes, our
-                      team takes pride in tailoring financial solutions for
-                      optimal results. Partner with Maxx Capital for a dedicated
-                      ally on your financial journey, committed to transforming
-                      challenges into opportunities and making real estate
-                      project funding more accessible and advantageous for all
-                      stakeholders. Since our establishment in 2020, Maxx
-                      Capital has been a leader in providing strategic financial
-                      solutions under Mr. Shailesh Mishra's visionary leadership.
-                      Specializing in expert guidance and advisory services
-                      tailored to unique client needs, we navigate the
-                      complexities of private investment funding in builder
-                      projects and orchestrate comprehensive financial packages,
-                      including working capital loans, corporate finance, and
-                      structured finance. Beyond conventional services, our
-                      dedicated team excels in crafting innovative solutions
-                      for startups, handling complex restructuring and refinance
-                      cases, and providing expert insights into insolvency and
-                      bankruptcy services. Maxx Capital is your reliable partner
-                      for private equity debt syndication, investment banking,
-                      merger and acquisition services, and a spectrum of banking
-                      and NBFC finance solutions. Welcome to a consultancy where
-                      your aspirations meet expert financial guidance – welcome
-                      to Maxx Capital
-                    </>
-                  ) : (
-                    <>
-                      Established in 2020 under the visionary leadership of Mr.
-                      Shailesh Mishra, Maxx Capital stands as a pioneering force
-                      in real estate project funding consultancy. With a rich
-                      background spanning two decades in banking and finance,
-                      Mr. Mishra envisioned a consultancy dedicated to
-                      simplifying the complex landscape of securing funds for
-                      real estate ventures. Our mission is to streamline the
-                      financing process while exhibiting unwavering dedication
-                      in negotiating deals that serve the best interests of both
-                      financial institutions and our clients...
-                    </>
-                  )}
-                </p>
-                {!showFullHistory && (
-                  <Button variant="outline-light" onClick={handleReadMoreClick} >
-                    	&darr;
-                  </Button>
-                )}
-                {showFullHistory && (
-                  <Button variant="outline-light" onClick={handleReadMoreClick}>
-                    &uarr;
-                  </Button>
-                )}
-              </div>
-            </div>
           </div>
         </div>
       </div>
-
-     
     </main>
   );
 }

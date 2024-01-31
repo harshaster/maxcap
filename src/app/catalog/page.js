@@ -2,7 +2,9 @@
 import ResultBox from "@/components/resultBox";
 import { useState } from "react";
 import Slider from "@mui/material/Slider";
-
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 export default function Catalog() {
   const [properties, setproperties] = useState([
     {
@@ -54,13 +56,27 @@ export default function Catalog() {
       location: "Location6",
     },
   ]);
-  const [selectedValue, setSelectedValue] = useState(50000);
-  const [selectedPriceRange, setSelectedPriceRange] = useState([10000, 60000]);
+  
+
+ 
+  const searchParams = useSearchParams()
+  const location = searchParams.get("location")
+  const minPrice = searchParams.get("minPrice")
+  const maxPrice = searchParams.get("maxPrice")
+  const sortBy = searchParams.get("sortBy")
+  const [selectedPriceRange, setSelectedPriceRange] = useState([minPrice, maxPrice]);
+  const [selectedLocation, setSelectedLocation] = useState(location);
+  
+ 
+  console.log("location", location);
+  console.log("minPrice", minPrice);
+  console.log("maxPrice", maxPrice);
+  console.log("sortBy", sortBy);
+
 
   const uniqueLocations = [
     ...new Set(properties.map((property) => property.location)),
   ];
-  const [selectedLocation, setSelectedLocation] = useState(null);
 
   const filteredLocationProperties = selectedLocation
     ? properties.filter((p) => p.location === selectedLocation)
@@ -127,7 +143,7 @@ export default function Catalog() {
           </div>
           <div className="col-3 col-lg-2 px-2">
             <Slider
-              aria-label="Property Price"
+              getAriaLabel={valuetext}
               value={selectedPriceRange}
               valueLabelDisplay="auto"
               onChange={handleSliderChange}
